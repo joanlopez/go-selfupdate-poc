@@ -1,0 +1,42 @@
+version: 2
+project_name: go-selfupdate-poc
+builds:
+  # Windows
+  - id: go-selfupdate-poc-windows
+    binary: go-selfupdate-poc
+    env: [ CGO_ENABLED=0 ]
+    goos: [ windows ]
+    goarch: [ amd64,386 ]
+  # MacOS
+  - id: go-selfupdate-poc-macos
+    binary: go-selfupdate-poc
+    env: [ CGO_ENABLED=0 ]
+    goos: [ darwin ]
+    goarch: [ amd64,arm64 ]
+  # Linux
+  - id: go-selfupdate-poc-linux
+    binary: go-selfupdate-poc
+    env: [ CGO_ENABLED=0 ]
+    goos: [ linux ]
+    goarch: [ amd64,arm64,386 ]
+
+archives:
+  - id: go-selfupdate-poc
+    builds:
+      - go-selfupdate-poc-windows
+      - go-selfupdate-poc-macos
+    format: zip
+  - id: go-selfupdate-poc-linux
+    builds:
+      - go-selfupdate-poc-linux
+    format: tar.gz
+
+checksum:
+  split: true
+  algorithm: sha256
+  name_template: "{{ .ArtifactName }}.sha256"
+
+changelog:
+  filters:
+    exclude:
+      - '^Chore:'
