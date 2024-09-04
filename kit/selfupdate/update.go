@@ -13,7 +13,7 @@ import (
 
 func updateTo(ctx context.Context, r *Release, path string) error {
 	// First, we download the release asset.
-	src, _, err := githubClient().Repositories.DownloadReleaseAsset(
+	src, _, err := downloadReleaseAsset(
 		ctx, r.RepoOwner, r.RepoName, r.AssetID, http.DefaultClient,
 	)
 	if err != nil {
@@ -27,7 +27,7 @@ func updateTo(ctx context.Context, r *Release, path string) error {
 	}
 
 	// Then, we download the validation asset.
-	vSrc, _, err := githubClient().Repositories.DownloadReleaseAsset(
+	vSrc, _, err := downloadReleaseAsset(
 		ctx, r.RepoOwner, r.RepoName, r.ValidationAssetID, http.DefaultClient,
 	)
 	if err != nil {
