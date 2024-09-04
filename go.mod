@@ -1,6 +1,8 @@
 module github.com/joanlopez/go-selfupdate-poc
 
-go 1.22.6
+go 1.21
+
+toolchain go1.21.13
 
 require (
 	github.com/google/go-github/v64 v64.0.0
